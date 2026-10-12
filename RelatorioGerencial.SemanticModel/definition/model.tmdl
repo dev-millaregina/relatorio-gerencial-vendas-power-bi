@@ -1,0 +1,29 @@
+model Model
+	culture: pt-BR
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: pt-BR
+	valueFilterBehavior: independent
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+queryGroup 'Transformar Arquivo de dados'
+
+	annotation PBI_QueryGroupOrder = 0
+
+queryGroup 'Transformar Arquivo de dados\Consultas Auxiliares'
+
+	annotation PBI_QueryGroupOrder = 0
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["Parâmetro1","Transformar o Arquivo de Exemplo","Arquivo de Amostra","Transformar Arquivo","financials"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table financials
+ref table DateTableTemplate_e43284ae-fb99-4719-bf5a-76fc06f3015a
+ref table LocalDateTable_c86b5e4a-c408-442e-a9e7-8d6811a00b4e
+
+ref cultureInfo pt-BR
+

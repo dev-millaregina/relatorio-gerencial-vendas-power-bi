@@ -1,0 +1,43 @@
+expression Parâmetro1 = #"Arquivo de Amostra" meta [IsParameterQuery=true, BinaryIdentifier=#"Arquivo de Amostra", Type="Binary", IsParameterQueryRequired=true]
+	lineageTag: 4553fcad-e041-4084-a468-55186698ce77
+	queryGroup: 'Transformar Arquivo de dados\Consultas Auxiliares'
+
+	annotation PBI_ResultType = Binary
+
+expression 'Transformar o Arquivo de Exemplo' =
+		let
+		    Fonte = Excel.Workbook(Parâmetro1, null, true),
+		    financials_Table = Fonte{[Item="financials",Kind="Table"]}[Data]
+		in
+		    financials_Table
+	lineageTag: 76f688c1-d7f8-46fd-9b4a-a87bedb6741f
+	queryGroup: 'Transformar Arquivo de dados'
+
+	annotation PBI_ResultType = Table
+
+expression 'Arquivo de Amostra' =
+		let
+		    Fonte = Folder.Files("C:\Users\milla\OneDrive\Área de Trabalho\cursos\13 - power BI\dashboard-vendas-power-bi\dados"),
+		    #"C:\Users\milla\OneDrive\Área de Trabalho\cursos\13 - power BI\dashboard-vendas-power-bi\dados\_Financial Sample xlsx" = Fonte{[#"Folder Path"="C:\Users\milla\OneDrive\Área de Trabalho\cursos\13 - power BI\dashboard-vendas-power-bi\dados\",Name="Financial Sample.xlsx"]}[Content]
+		in
+		    #"C:\Users\milla\OneDrive\Área de Trabalho\cursos\13 - power BI\dashboard-vendas-power-bi\dados\_Financial Sample xlsx"
+	lineageTag: 7df82cac-3ecd-44fb-be23-5b38e56e7129
+	queryGroup: 'Transformar Arquivo de dados\Consultas Auxiliares'
+
+	annotation PBI_ResultType = Binary
+
+expression 'Transformar Arquivo' =
+		let
+		    Fonte = (Parâmetro1 as binary) => let
+		    Fonte = Excel.Workbook(Parâmetro1, null, true),
+		    financials_Table = Fonte{[Item="financials",Kind="Table"]}[Data]
+		in
+		    financials_Table
+		in
+		    Fonte
+	mAttributes: [ FunctionQueryBinding = "{""exemplarFormulaName"":""Transformar o Arquivo de Exemplo""}" ]
+	lineageTag: cb49a86b-2701-491d-8385-6eddce0d7855
+	queryGroup: 'Transformar Arquivo de dados\Consultas Auxiliares'
+
+	annotation PBI_ResultType = Function
+
